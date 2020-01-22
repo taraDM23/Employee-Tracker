@@ -19,7 +19,7 @@ connection.connect(function (err) {
 function start() {
   inquirer
     .prompt({
-      name: "getPostPut",
+      name: "action",
       type: "list",
       message: "Would you like to do?",
       choices: [
@@ -34,20 +34,19 @@ function start() {
         "Remove Employee",
         "Exit"]
     })
-
     .then(function (answer) {
       switch (answer.action) {
         case "View employees":
-          post();
+          viewEmployee();
           break;
         case "View employees by department":
-          put();
+          viewEmployeeDept();
           break;
         case "View employees by position":
-          put();
+          viewEmployeeRole();
           break;
         case "View employees by Manager":
-          put();
+          viewEmployeeManager();
           break;
         case "Add new employee":
           addEmployee();
@@ -58,11 +57,14 @@ function start() {
         case "Add new department":
           addDepartment();
           break;
+
         case "Update an Employees Role":
-          put();
+          updateEmp();
+          console.log ("hamburgers")
           break;
+
         case "Remove Employee":
-          put();
+          destroy();
           break;
         case "Exit":
           console.log("Have a Nice Day \n");
