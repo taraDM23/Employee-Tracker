@@ -45,9 +45,9 @@ function start() {
         case "View employees by position":
           viewEmployeeRole();
           break;
-        case "View employees by Manager":
+       /*  case "View employees by Manager":
           viewEmployeeManager();
-          break;
+          break; */
         case "Add new employee":
           addEmployee();
           break;
@@ -197,3 +197,8 @@ function addRole() {
     })
 }
 
+//===================== View Employee ======================================
+//===================== View Sorted by Employee title/role ======================================
+//===================== View Sorted by Employee department  ======================================
+//===================== Update an Employees Role ======================================
+//===================== Remove an Employee ======================================
