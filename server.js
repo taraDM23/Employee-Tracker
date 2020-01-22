@@ -21,25 +21,56 @@ function start() {
     .prompt({
       name: "getPostPut",
       type: "list",
-      message: "Would you like to View, add or Update an employee's Information?",
-      choices: ["Add New", "Update", "View", "Delete", "Exit"]
+      message: "Would you like to do?",
+      choices: [
+        "View employees",
+        "View employees by department",
+        "View employees by position",
+        "View employees by Manager",
+        "Add new employee",
+        "Add new position",
+        "Add new department",
+        "Update an Employees Role",
+        "Remove Employee",
+        "Exit"]
     })
-    .then(function (answer) {
 
-      if (answer.getPostPut === "Add New") {
-        post();
-      }
-      else if (answer.getPostPut === "Update") {
-        put();
-      }
-      else if (answer.getPostPut === "View") {
-        get();
-      }
-      else if (answer.getPostPut === "Delete") {
-        destroy();
-      }
-      else {
-        connection.end();
+    .then(function (answer) {
+      switch (answer.action) {
+        case "View employees":
+          post();
+          break;
+        case "View employees by department":
+          put();
+          break;
+        case "View employees by position":
+          put();
+          break;
+        case "View employees by Manager":
+          put();
+          break;
+        case "Add new employee":
+          put();
+          break;
+        case "Add new position":
+          put();
+          break;
+        case "Add new department":
+          put();
+          break;
+        case "Update an Employees Role":
+          put();
+          break;
+        case "Remove Employee":
+          put();
+          break;
+        case "Exit":
+          console.log("Have a Nice Day \n");
+          connection.end();
+          break;
       }
     });
-}
+};
+
+
+
