@@ -50,13 +50,13 @@ function start() {
           put();
           break;
         case "Add new employee":
-          put();
+          addEmployee();
           break;
         case "Add new position":
-          put();
+          addRole();
           break;
         case "Add new department":
-          put();
+          addDepartment();
           break;
         case "Update an Employees Role":
           put();
@@ -71,6 +71,127 @@ function start() {
       }
     });
 };
+//===================== Add New Employee ======================================
+function addEmployee() {
+  inquirer
+    .prompt([
+      {
+        name: "first_name",
+        type: "input",
+        message: "What is the employees first name?"
+      },
+      {
+        name: "last_name",
+        type: "input",
+        message: "What is the employees last name?"
+      },
+      {
+        name: "id",
+        type: "input",
+        message: "What is the employee's identification number?"
+      },
+      {
+        name: "role_id",
+        type: "input",
+        message: "What is the position identification you would like to submit?"
+      }
+      /* 
+           {    
+             name: "manager",
+             type: "input",
+             message: "If applicable enter the relevant team manager?"
+           }, */
+    ])
+    .then(function (answer) {
+      connection.query(
+        "INSERT INTO employee SET ?",
+        {
+          first_name: answer.first_name,
+          last_name: answer.last_name,
+          id: answer.id,
+          role: answer.role
+        },
+        function (err) {
+          if (err) throw err;
+          console.log("New Position Submitted successfully!");
+          start();
+        }
+      );
+    })
+}
 
 
+//===================== Add New Department ======================================
+function addDepartment() {
+  inquirer
+    .prompt([
+      {
+        name: "department_name",
+        type: "input",
+        message: "What is the department name you would like to submit?"
+      },
+      {
+        name: "id",
+        type: "input",
+        message: "What is the department id you would like to submit?"
+      }
+    ])
+    .then(function (answer) {
+      connection.query(
+        "INSERT INTO department SET ?",
+        {
+          department_name: answer.department_name,
+          id: answer.id,
+        },
+        function (err) {
+          if (err) throw err;
+          console.log("New Department Submitted successfully!");
+          start();
+        }
+      );
+    })
+}
+
+//===================== Add New Role ======================================
+function addRole() {
+  inquirer
+    .prompt([
+      {
+        name: "title",
+        type: "input",
+        message: "What is the position title you would like to submit?"
+      },
+      {
+        name: "id",
+        type: "input",
+        message: "What is the position id you would like to submit?"
+      },
+      {
+        name: "salary",
+        type: "input",
+        message: "What is the position salary you would like to submit?"
+      },
+      {
+        name: "department_id",
+        type: "input",
+        message: "What is the department identification for this role?"
+      },
+    ])
+    .then(function (answer) {
+      connection.query(
+        "INSERT INTO role SET ?",
+        {
+          title: answer.title,
+          id: answer.id,
+          salary: answer.salary || 0,
+          department_id: answer.department_id
+        },
+        function (err) {
+          if (err) throw err;
+          console.log("New Position Submitted successfully!");
+          start();
+        }
+      );
+    })
+}
 
