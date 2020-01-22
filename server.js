@@ -45,9 +45,9 @@ function start() {
         case "View employees by position":
           viewEmployeeRole();
           break;
-       /*  case "View employees by Manager":
-          viewEmployeeManager();
-          break; */
+        /*  case "View employees by Manager":
+           viewEmployeeManager();
+           break; */
         case "Add new employee":
           addEmployee();
           break;
@@ -60,7 +60,7 @@ function start() {
 
         case "Update an Employees Role":
           updateEmp();
-          console.log ("hamburgers")
+          console.log("hamburgers")
           break;
 
         case "Remove Employee":
@@ -198,7 +198,55 @@ function addRole() {
 }
 
 //===================== View Employee ======================================
+function viewEmployee() {
+  connection.query(
+    '',
+    
+    (err, data) => {
+      if (err) throw err;
+      console.table("\n", data);
+    }
+  );
+};
+
 //===================== View Sorted by Employee title/role ======================================
 //===================== View Sorted by Employee department  ======================================
 //===================== Update an Employees Role ======================================
 //===================== Remove an Employee ======================================
+function destroy() {
+  let employeeNameArray = [];
+  connection.query(
+    'SELECT CONCAT(first_name, " ", last_name) AS fullName FROM employee;',
+    (err, data) => {
+      if (err) throw err;
+      for (const el of data) {
+        employeeNameArray.push(el.fullName);
+      };
+      inquirer
+        .prompt([
+          {
+            name: "name",
+            type: "list",
+            message: "Which employee do you wish to remove?",
+            choices: employeeNameArray
+          }
+        ])
+        .then(function (answer) {
+          connection.query(
+            "DELETE FROM employee WHERE id = ?",
+            {
+              id: answer.name,
+            },
+            function (err) {
+              if (err) throw err;
+              console.log("Employee data has been removed");
+              start();
+            }
+          );
+        })
+    })
+}
+
+// Extra
+//===================== Remove a Department ======================================
+//===================== Remove an Role ======================================
